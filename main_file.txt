@@ -1,0 +1,75 @@
+using dotnetformsample.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace dotnetformsample
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        private string gender;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            this.DataContext = new Combo();
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            String _name = fname.Text.ToString();
+            int _age = Int32.Parse(age.Text);
+            String _gender = gender;
+            String _movie = movies.Text;
+            int _points=0;
+            Console.Out.WriteLine(_name+""+_age + "" + _gender + "" + _movie);
+            if(hun.IsChecked==true)
+            {
+                _points = 100;
+            }
+            if (fif.IsChecked == true)
+            {
+                _points = 50;
+            }
+            if (fif.IsChecked == true && hun.IsChecked == true)
+            {
+                _points = 150;
+            }
+            int _rating = (_points + _age);
+            rating.Text = _rating.ToString();
+
+            List<DataStore> mydata = new List<DataStore>();
+            DataStore obj = new DataStore() { Name=_name.ToString(),Age=_age,Gender=_gender,Movie=_movie,Points=_points,Rating=_rating};
+            mydata.Add(obj);
+            this.DataContext = mydata;
+            this.listView.Items.Add(obj);
+
+        }
+
+        private void male_Checked(object sender, RoutedEventArgs e)
+        {
+            gender = "Male";
+        }
+
+        private void female_Checked(object sender, RoutedEventArgs e)
+        {
+            gender = "Female";
+        }
+    }
+}
